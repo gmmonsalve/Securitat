@@ -83,7 +83,7 @@ public class Securitat {
     }
 
     public void addLogin(Object... obj) {
-        
+
         Login login = new Login(obj);
         logins.add(login);
     }
@@ -91,17 +91,18 @@ public class Securitat {
     public boolean validarHuella(Huella huella) {
         for (Persona p : personas) {
             if (p.getHuella().equals(huella)) {
-                System.out.println("Esta es la huella de la persona:"+p.getNombre()+" en la lista:"+p.getHuella());
-                return true;   
+                return true;
             }
         }
         return false;
     }
-    
-    
+  
+    public boolean iguales(Huella huella,Persona persona) {
+        
+    }
 
     public void addPersona(String nombre, Huella huella) {
-        if (validarHuella(huella) == true) {
+        if (validarHuella(huella)) {
             System.out.println(" Huella ya existe! Usuario " + nombre + " no fue creado");
         } else {
             personas.add(new Persona(nombre, huella));
@@ -110,7 +111,7 @@ public class Securitat {
     }
 
     public void addAdministrador(String nombre, Huella huella, String password) {
-        if (validarHuella(huella) == true) {
+        if (validarHuella(huella)) {
             System.out.println("Huella ya existe! Administrador " + nombre + " no fue creado");
         } else {
             personas.add(new Administrador(nombre, huella, password));

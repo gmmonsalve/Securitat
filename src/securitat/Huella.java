@@ -30,15 +30,7 @@ public class Huella {
         senales.add(senal);
     }
 
-    public boolean equals(Huella huella) {
-        if (senales.size() != huella.senales.size()) {
-            return false;
-        }
-        boolean[] igual = new boolean[senales.size()];
-        for (Senal s : this.senales) {
-            for (int j = 0; j < huella.senales.size();j++) {
-                if(s.equals(huella.))
-            }
-        }
-    }
-}
+    public boolean validarHuellaSenal(Huella huella) {
+     }
+
+}//http://multimedia.uoc.edu/blogs/labpc/es/2017/07/07/dossier-kinect-i-processing/
