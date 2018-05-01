@@ -39,6 +39,10 @@ public class Login {
 
     }
 
+    public LoginState getLoginstate() {
+        return loginstate;
+    }
+    
     public Date getLocalDateTime() {    
         return LocalDateTime;
     }

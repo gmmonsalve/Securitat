@@ -30,7 +30,7 @@ public class Huella {
         senales.add(senal);
     }
 
-    public boolean validarHuellaSenal(Huella huella) {
-     }
+//    public boolean validarHuellaSenal(Huella huella) {
+//     }
 
 }//http://multimedia.uoc.edu/blogs/labpc/es/2017/07/07/dossier-kinect-i-processing/
