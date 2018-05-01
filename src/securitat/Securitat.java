@@ -97,9 +97,9 @@ public class Securitat {
         return false;
     }
   
-    public boolean iguales(Huella huella,Persona persona) {
-        
-    }
+//    public boolean iguales(Huella huella,Persona persona) {
+//        
+//    }
 
     public void addPersona(String nombre, Huella huella) {
         if (validarHuella(huella)) {
@@ -125,6 +125,15 @@ public class Securitat {
     }
 
     private void calcMayorProblemaEntreAdministradores(LoginState loginState) {
+        for(Persona p:personas){
+            System.out.println("Estoy haciendo ciclo en personas");
+         for(Login l: p.getLogins()){
+             if(l.getLoginstate().name().equals(loginState.name())){
+             } else {
+                 System.out.println("El usuario: "+p.getNombre()+" Ha tenido error de Login tipo: "+loginState.name());
+             }
+         }
+        }
     }
 
 }
