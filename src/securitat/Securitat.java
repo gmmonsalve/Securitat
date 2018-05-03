@@ -76,7 +76,6 @@ public class Securitat {
         securitat.addLogin(d, securitat.getPersona(3), securitat.getPersona(2).getHuella(), "BlahBlahBlah");
         //Patricio como administradora con huella errada
         securitat.addLogin(d, securitat.getPersona(3), securitat.getPersona(2).getHuella(), "BlahBlahBlah");
-
         securitat.calcMayorProblemaEntreAdministradores(LoginState.PROBLEMA_HUELLA);
         securitat.calcMayorProblemaEntreAdministradores(LoginState.PROBLEMA_PASSWORD);
         securitat.calcMayorProblemaEntreAdministradores(LoginState.NO_PASSWORD);
@@ -127,8 +126,11 @@ public class Securitat {
     private void calcMayorProblemaEntreAdministradores(LoginState loginState) {
         for(Persona p:personas){
             System.out.println("Estoy haciendo ciclo en personas");
+            System.out.println(p.getLogins().size());
          for(Login l: p.getLogins()){
+             System.out.println(l.getLoginstate().name());
              if(l.getLoginstate().name().equals(loginState.name())){
+                 
              } else {
                  System.out.println("El usuario: "+p.getNombre()+" Ha tenido error de Login tipo: "+loginState.name());
              }
