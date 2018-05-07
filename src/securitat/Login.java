@@ -5,7 +5,7 @@
  */
 package securitat;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -13,58 +13,48 @@ import java.util.Date;
  */
 public class Login {
 
-    private Date LocalDateTime;
-    private String password="";
+     private final LocalDateTime date;
+    private final String password="";
     private boolean valid;
-    private Persona persona;
+    private final Persona persona;
     private LoginState loginstate;
-    private Huella huella;
+    private final Huella huella;
 
-    public Login(Object... obj) {
-        for (Object o : obj) {
-            if (o instanceof Date) {
-               this.LocalDateTime=(Date) o;
-            } else if (o instanceof String) {
-                this.password = (String) o;
-            } else if (o instanceof Boolean) {
-                this.valid = (boolean) o;
-            } else if (o instanceof Persona) {
-                this.persona = (Persona) o;
-            } else if (o instanceof LoginState) {
-                this.loginstate = (LoginState) o;
-            } else if (o instanceof Huella) {
-                this.huella = (Huella) o;
-            }
-        }
-
+      public Login (LocalDateTime date, Persona persona, Huella huella){
+        this.date = date;
+        this.persona = persona;
+        this.huella = huella;
     }
-
-    public LoginState getLoginstate() {
+    public LoginState getLoginState() {
         return loginstate;
     }
-    
-    public Date getLocalDateTime() {    
-        return LocalDateTime;
+    public void setLoginState(LoginState state) {
+        this.loginstate = state;
+       if(state.equals(LoginState.EXITOSO) ){
+        this.valid = true; 
+       }  
     }
-
-    public void setLocalDateTime(Date LocalDateTime) {
-        this.LocalDateTime = LocalDateTime;
+    
+     public LocalDateTime getDate() {
+        return date;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isValid() {
+    public boolean Valido() {
         return valid;
     }
 
-    public void setValid(boolean valid) {
-        this.valid = valid;
+    public Huella getHuella() {
+        return huella;
     }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+   
 
 }

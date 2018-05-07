@@ -37,5 +37,13 @@ public class Senal {
     public void setY(int y) {
         this.y = y;
     }
-
+@Override
+    public boolean equals(Object o){
+        if (o instanceof Senal){
+            Senal s = (Senal) o;
+            return s.x== this.x && s.y == this.y & s.senalhuella == this.senalhuella;
+        }else{
+            return false;
+        }
+    }
 }

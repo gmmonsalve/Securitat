@@ -6,6 +6,8 @@
 package securitat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  *
@@ -15,22 +17,38 @@ public class Huella {
 
     private final ArrayList<Senal> senales;
     private Senal senal;
-
-    public Huella(Object... obj) {
-        senales = new ArrayList<>();
-        for (Object o : obj) {
-            if (o instanceof Senal) {
-                this.senal = (Senal) o;
-            }
-
-        }
+    
+    public Huella(Senal... senales) {
+        this.senales = new ArrayList();
+        this.senales.addAll(Arrays.asList(senales));
     }
-
-    public void addSenal(Senal senal) {
-        senales.add(senal);
+    
+  @Override
+    public boolean equals(Object o) {
+        if (o instanceof Huella) {
+            ArrayList<Senal> senalesO = ((Huella) o).senales;
+            if (senalesO.size() != this.senales.size()) {
+                return false;
+            } else {
+                for (Senal s : this.senales) {
+                    if (!senalesO.contains(s)){
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
 //    public boolean validarHuellaSenal(Huella huella) {
 //     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.senales);
+        return hash;
+    }
 
 }//http://multimedia.uoc.edu/blogs/labpc/es/2017/07/07/dossier-kinect-i-processing/

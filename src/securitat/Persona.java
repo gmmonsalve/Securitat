@@ -12,77 +12,29 @@ import java.util.ArrayList;
  * @author daalb
  */
 public class Persona {
-
-    private String nombre;
-    private int id;
-    private static int Contid = 0;
-    private int contPer;
-    private static int contPers = 0;
+  private final String nombre;
+    private final Huella huella;
     private final ArrayList<Login> logins;
-    private Huella huella;
 
-    public Persona(String nombre, Huella huella) {
-        this.id = Contid++;
-        this.contPer = contPers++;
+    Persona(String nombre, Huella huella) {
         this.nombre = nombre;
         this.huella = huella;
         logins = new ArrayList<>();
-    }
-
-    public ArrayList<Login> getLogins() {
-        return logins;
-    }
-
-    public void addLogin(Login l) {
-        logins.add(l);
-    }
-
-    public Huella getHuella() {
-        return huella;
-    }
-
-    public void setHuella(Huella huella) {
-        this.huella = huella;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Huella getHuella() {
+        return huella;
     }
-
-    public int getId() {
-        return id;
+    
+    public void addLogin(Login l){
+        logins.add(l);
     }
-
-    public void setId(int id) {
-        this.id = id;
+    
+    public ArrayList<Login> getLogins(){
+        return logins;
     }
-
-    public static int getContid() {
-        return Contid;
-    }
-
-    public static void setContid(int Contid) {
-        Persona.Contid = Contid;
-    }
-
-    public int getContPer() {
-        return contPer;
-    }
-
-    public void setContPer(int contPer) {
-        this.contPer = contPer;
-    }
-
-    public static int getContPers() {
-        return contPers;
-    }
-
-    public static void setContPers(int contPers) {
-        Persona.contPers = contPers;
-    }
-
 }

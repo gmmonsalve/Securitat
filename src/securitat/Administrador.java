@@ -11,13 +11,26 @@ package securitat;
  */
 public class Administrador extends Persona {
 
-    private String password;
-    private Huella huella;
+    private final String password;
+   
 
     public Administrador(String nombre, Huella huella, String password) {
         super(nombre, huella);
         this.password = password;
 
+    }
+public String getPassword() {
+        return password;
+    }
+    
+    public int getLoginState(LoginState s){
+        int n = 0;
+        for(Login l : this.getLogins()){
+            if (l.getLoginState() == s){
+                n++;
+            }
+        }
+        return n;
     }
 
 }
