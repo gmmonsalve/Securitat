@@ -82,9 +82,10 @@ public class Securitat {
     }
 
     public void addLogin(Object... obj) {
-
         Login login = new Login(obj);
         logins.add(login);
+        // persona.add(login)
+        
     }
 
     public boolean validarHuella(Huella huella) {

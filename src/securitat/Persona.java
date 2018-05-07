@@ -18,7 +18,7 @@ public class Persona {
     private static int Contid = 0;
     private int contPer;
     private static int contPers = 0;
-    private ArrayList<Login> logins;
+    private final ArrayList<Login> logins;
     private Huella huella;
 
     public Persona(String nombre, Huella huella) {

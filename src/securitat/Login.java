@@ -14,7 +14,7 @@ import java.util.Date;
 public class Login {
 
     private Date LocalDateTime;
-    private String password;
+    private String password="";
     private boolean valid;
     private Persona persona;
     private LoginState loginstate;
