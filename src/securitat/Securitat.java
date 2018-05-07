@@ -81,62 +81,98 @@ public class Securitat {
         securitat.calcMayorProblemaEntreAdministradores(LoginState.NO_PASSWORD);
     }
 
-    public void addLogin(Object... obj) {
-        Login login = new Login(obj);
-        logins.add(login);
-        // persona.add(login)
-        
+   private void addPersona(String nombre, Huella huella){
+        if (huellaExiste(huella)){
+            System.out.println("Huella ya existe! Usuario " + nombre + " no fue creado");
+        }else{
+            personas.add(new Persona(nombre, huella));
+            System.out.println("Creación exitosa! Usuario " + nombre);
+        }
     }
-
-    public boolean validarHuella(Huella huella) {
-        for (Persona p : personas) {
-            if (p.getHuella().equals(huella)) {
+    
+    private boolean huellaExiste(Huella huella) {
+        for (Persona p:personas) {
+            if (p.getHuella().equals(huella)){
                 return true;
             }
         }
         return false;
     }
-  
-//    public boolean iguales(Huella huella,Persona persona) {
-//        
-//    }
-
-    public void addPersona(String nombre, Huella huella) {
-        if (validarHuella(huella)) {
-            System.out.println(" Huella ya existe! Usuario " + nombre + " no fue creado");
-        } else {
-            personas.add(new Persona(nombre, huella));
-            System.out.println("Creación exitosa! Usuario " + nombre);
+    
+    
+    
+    private void addLogin(LocalDateTime date, Persona persona, Huella huella){
+        Login login = new Login(date, persona, huella);
+        if (persona instanceof Administrador){
+            login.setLoginState(LoginState.NO_PASSWORD);
+            
+        }else{
+            if (persona.getHuella().equals(huella)){
+                login.setLoginState(LoginState.EXITOSO);
+            }else{
+                login.setLoginState(LoginState.PROBLEMA_HUELLA);
+            }
         }
+        if (login.getLoginState() == LoginState.EXITOSO){
+            System.out.println("Login de " + persona.getNombre() + " exitoso!");
+        }else{
+            System.out.println("Login de " + persona.getNombre() + " no exitoso - " + login.getLoginState());
+        }
+        persona.addLogin(login);
+        logins.add(login);
     }
-
-    public void addAdministrador(String nombre, Huella huella, String password) {
-        if (validarHuella(huella)) {
-            System.out.println("Huella ya existe! Administrador " + nombre + " no fue creado");
-        } else {
+    
+   
+    
+    public void addAdministrador(String nombre, Huella huella, String password){
+        if (huellaExiste(huella)){
+            System.out.println("Huella ya existe! Administrador " + nombre +" no creado");
+        }else{
             personas.add(new Administrador(nombre, huella, password));
             System.out.println("Creación exitosa! Administrador " + nombre);
         }
-
     }
-
-    public Persona getPersona(int i) {
-        return this.personas.get(i);
+    public Persona getPersona(int i){
+        return personas.get(i);
     }
-
-    private void calcMayorProblemaEntreAdministradores(LoginState loginState) {
-        for(Persona p:personas){
-            System.out.println("Estoy haciendo ciclo en personas");
-            System.out.println(p.getLogins().size());
-         for(Login l: p.getLogins()){
-             System.out.println(l.getLoginstate().name());
-             if(l.getLoginstate().name().equals(loginState.name())){
-                 
-             } else {
-                 System.out.println("El usuario: "+p.getNombre()+" Ha tenido error de Login tipo: "+loginState.name());
-             }
-         }
+     private void addLogin(LocalDateTime date, Persona persona, Huella huella, String password) {
+        Login login = new Login(date, persona, huella);
+        if (!(persona instanceof Administrador)){
+            login.setLoginState(LoginState.EXTRA_PASSWORD);
+        }else{
+            Administrador admin = (Administrador) persona;
+            if (admin.getHuella().equals(huella)){
+                if (admin.getPassword().equals(password)){
+                    login.setLoginState(LoginState.EXITOSO);
+                }else{
+                    login.setLoginState(LoginState.PROBLEMA_PASSWORD);
+                }
+            }else{
+                login.setLoginState(LoginState.PROBLEMA_HUELLA);
+            }
         }
+        if (login.getLoginState() != LoginState.EXITOSO){
+            System.out.println("Login de " + persona.getNombre() + " no exitoso - " + login.getLoginState());
+        }else{  
+            System.out.println("Login de " + persona.getNombre() + " exitoso!");
+        }
+        logins.add(login);
+        persona.addLogin(login);
     }
-
+     private void calcMayorProblemaEntreAdministradores(LoginState loginState) {
+        int may = 0;
+        Administrador mAdmi = null;
+        for (Persona persona : personas) {
+            if (persona instanceof Administrador){
+                Administrador admin = (Administrador) persona;
+                int n = admin.getLoginState(loginState);
+                if (n > may){
+                    may = n;
+                    mAdmi = admin;
+                }
+            }
+        }
+        System.out.println(mAdmi != null ?
+                ("El usuario con más problemas " + loginState +" es " + mAdmi.getNombre() + " con " + may) : "");
+    }
 }
